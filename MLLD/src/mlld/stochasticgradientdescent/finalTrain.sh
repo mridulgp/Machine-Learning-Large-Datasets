@@ -5,12 +5,15 @@ rm -rf train_data
 mkdir -p sgd.lr
 mkdir train_data
 
-for ((i=1; i<=20; i++))
+trainfile=`basename $4`
+
+#for ((i=1; i<=20; i++))
+for i in $(seq 1 20)
 do
-	shuf abstract.tiny.train > train_data/abstract.tiny.train.$i
+	shuf $4 > train_data/$trainfile.$i
 done
 
-length=`wc -l < abstract.tiny.train`
+length=`wc -l < $4`
 
 java LogisticRegression train_data/ $length $1 $2 | grep "Likelihood"
 
