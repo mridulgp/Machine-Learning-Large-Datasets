@@ -1,7 +1,0 @@
-phrases:
-	- ./bin/hadoop dfs -rmr outputPhraseRequests outputPhraseMessages outputPhraseMerge tempPhraseBigramCounts globalPhraseCounts finalPhraseOutput
-	jar -xvf MapReducePhraseCount.jar
-	./bin/hadoop jar MapReducePhraseCount.jar inputPhraseUnigrams inputPhraseBigrams outputPhraseRequests outputPhraseMessages outputPhraseMerge tempPhraseBigramCounts globalPhraseCounts
-	jar -xvf MapReducePCTest.jar
-	./bin/hadoop jar MapReducePCTest.jar outputPhraseMerge finalPhraseOutput globalPhraseCounts
-	./bin/hadoop dfs -cat finalPhraseOutput/part-r* | sort -k2,2gr | head -n 20
