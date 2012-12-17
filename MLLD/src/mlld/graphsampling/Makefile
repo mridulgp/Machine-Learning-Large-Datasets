@@ -1,20 +1,21 @@
-TESTFILE := /home/hadoop/workspace/Machine-Learning-for-Large-Datasets/MLLD/data/graph-sampling/test.adj
+HOME := /home/hadoop/workspace/Machine-Learning-for-Large-Datasets/MLLD/
+INPUTFILE := $(HOME)/data/graph-sampling/test.adj
 #SEED := "Machine Learning"
 SEED := "A"
 ALPHA := 0.3
 EPSILON := 1e-5
-OUTPUT := /home/hadoop/workspace/Machine-Learning-for-Large-Datasets/MLLD/data/graph-sampling/output
+OUTPUTDIR := $(HOME)/data/graph-sampling/output
 
 
 pagerank: ApproximatePageRank.class
-	mkdir -p $(OUTPUT)
-	java ApproximatePageRank $(TESTFILE) $(SEED) $(ALPHA) $(EPSILON) > $(OUTPUT)/pagerank.txt
+	mkdir -p $(OUTPUTDIR)
+	java ApproximatePageRank $(INPUTFILE) $(SEED) $(ALPHA) $(EPSILON) > $(OUTPUTDIR)/pagerank.txt
 
 snowball: ApproximatePageRank.class Conductance.class
-	mkdir -p $(OUTPUT)
-	java ApproximatePageRank $(TESTFILE) $(SEED) $(ALPHA) $(EPSILON) > $(OUTPUT)/pagerank.txt
-	java Conductance $(SEED) $(OUTPUT)/pagerank.txt $(TESTFILE) $(OUTPUT)/conductance.csv
-	rm -f $(OUTPUT)/pagerank.txt
+	mkdir -p $(OUTPUTDIR)
+	java ApproximatePageRank $(INPUTFILE) $(SEED) $(ALPHA) $(EPSILON) > $(OUTPUTDIR)/pagerank.txt
+	java Conductance $(SEED) $(OUTPUTDIR)/pagerank.txt $(INPUTFILE) $(OUTPUTDIR)/conductance.csv
+	rm -f $(OUTPUTDIR)/pagerank.txt
 
 ApproximatePageRank.class: ApproximatePageRank.java
 	javac ApproximatePageRank.java

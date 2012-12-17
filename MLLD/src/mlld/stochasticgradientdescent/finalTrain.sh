@@ -1,20 +1,22 @@
 #length=`wc -l < $1`
 #head -n $length $1
 
-rm -rf train_data
-mkdir -p sgd.lr
-mkdir train_data
+modeldir=$5
+rm -rf $modeldir/train_data
+mkdir -p $modeldir
+mkdir -p $modeldir/sgd.lr
+mkdir $modeldir/train_data
 
 trainfile=`basename $4`
 
 #for ((i=1; i<=20; i++))
 for i in $(seq 1 20)
 do
-	shuf $4 > train_data/$trainfile.$i
+	shuf $4 > $modeldir/train_data/$trainfile.$i
 done
 
 length=`wc -l < $4`
 
-java LogisticRegression train_data/ $length $1 $2 | grep "Likelihood"
+java LogisticRegression $modeldir/train_data $length $1 $2 $modeldir/sgd.lr | grep "Likelihood"
 
-java LRTest $3 sgd.lr/sgd.lr.$1-$2.final $1
+#java LRTest $3 $modeldir/sgd.lr/sgd.lr.$1-$2.final $1

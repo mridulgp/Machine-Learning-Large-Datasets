@@ -18,6 +18,11 @@ public class MemorySGD extends SGD
 		super(dictionarySize, regularizationConstant);
 	}
 
+	public MemorySGD(int dictionarySize, double regularizationConstant, int length)
+	{
+		super(dictionarySize, regularizationConstant, length);
+	}
+
 	public MemorySGD(int dictionarySize)
 	{
 		super(dictionarySize);

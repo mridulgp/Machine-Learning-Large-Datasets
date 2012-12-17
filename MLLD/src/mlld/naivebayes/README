@@ -1,0 +1,56 @@
+							Distributed Naive Bayes
+							=======================
+
+Introduction:
+=============
+This code implements a distributed MapReduce version of the supervised Naive Bayes algorithm for text classification using a stream-and-sort technique.
+
+
+Prerequisites:
+==============
+
+1. Hadoop cluster should be setup and should be running online. For more information please refer to:
+http://hadoop.apache.org/docs/stable/cluster_setup.html
+
+2. The code uses the Apache Hadoop library. This can be downloaded from:
+http://hadoop.apache.org/releases.html
+
+More specifically, the code has been compiled and tested with hadoop-0.20.203.0.
+
+DISCLAIMER: The code should compile and run on all stable releases starting 0.20 and later.
+	    There is no guarantee that this code will always compile with hadoop releases above 0.20.
+
+Code Compilation/Execution:
+===========================
+
+0. Export the home directory as a project in an IDE like Eclipse (also import required hadoop libraries). Else,
+you can also train and test the algorithm on the command line by using the jar files provided in lib/ directory as specified in the Makefile here:
+naivebayes/Makefile
+
+The steps below describe running the algorithm using the Makefile provided along with the source code.
+First, change directory to naivebayes as give below:
+	cd $(HOME)/src/naivebayes
+
+Sample data has been provided here:
+Train: $(HOME)/data/classification/abstract.tiny.train
+Test: $(HOME)/data/classification/abstract.tiny.test
+
+Please copy data files to HDFS on the hadoop cluster using the following command on the shell prompt:
+bin/hadoop dfs -copyFromLocal <localsrc> <hdfs-dst>
+
+
+Data format:
+Each document (text) is represented as a bag of words per line. Each line contains two tab separated columns.
+The first column denotes the set of labels separated by commas. The second column contains a bag-of-words representation of documents.
+For example,
+
+pt,tr,hu,es,ru,pl,ca,nl,sl,fr,ga,de,hr,el	william clark gable february 1 1901 ndash november 16 1960 american film actor 1999 american film institute named gable seventh among greatest male stars all time gable's most famous role rhett butler 1939 civil war epic film gone wind starred vivien leigh his performance earned him his third nomination academy award best actor won happened one night 1934 also nominated mutiny bounty 1935 later performances run silent run deep submarine war film his final film misfits 1961 paired gable marilyn monroe also her last screen appearance during his long film career gable appeared opposite some most popular actresses time joan crawford who his favorite actress work partnered gable eight films myrna loy him seven times paired jean harlow six productions also starred lana turner four features norma shearer three gable often named top male star mid30s second only top boxoffice draw all shirley temple
+
+1. Modify user parameters/variables in the makefile as follows:
+		HADOOP=<hadoop-home-directory>
+		TRAIN=<hdfs-train-dir>
+		TEST=<hdfs-test-dir>
+
+2. To train and test the algorithm:
+	(a). make
+	(b). Output of test set is printed on shell.

@@ -1,7 +1,7 @@
 Machine-Learning-Large-Datasets
 ===============================
 
-This package implements classification and graph sampling algorithms for large datasets.
+This package implements text classification and graph sampling algorithms for large datasets.
 It implements the following algorithms classification and sampling:
 
 1. Distributed Naive Bayes
@@ -9,9 +9,9 @@ It implements the following algorithms classification and sampling:
 3. Graph sampling using approximate personalized PageRank algorithm.
 4. Distributed phrase counting and probabilistic sampling from Google n-gram corpus.
 
-Also contains classification/sampling algorithms implemented in MapReduce framework for Hadoop. These include the following:
+Package also contains classification/sampling algorithms implemented in the MapReduce framework for Hadoop. These include the following:
 
-1. Naive Bayes
+1. Distributed Naive Bayes.
 2. Phrase counting and sampling.
 
 Please refer to README files for each specific algorithm to train/test models.

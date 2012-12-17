@@ -78,8 +78,8 @@ public class LRTest
 		BufferedReader inReader = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])));
 		SGD sgd = new MemorySGD(Integer.parseInt(args[2]));
 
-		//String[] labelList = {"nl", "el", "ru", "sl", "pl", "ca", "fr", "tr", "hu", "de", "hr", "es", "ga", "pt"};
-		String[] labelList = {"en", "de", "nd"};
+		String[] labelList = {"nl", "el", "ru", "sl", "pl", "ca", "fr", "tr", "hu", "de", "hr", "es", "ga", "pt"};
+		//String[] labelList = {"en", "de", "nd"};
 		
 		// dictionary size
 		LRTest lrTest = new LRTest(sgd, Integer.parseInt(args[2]), labelList);

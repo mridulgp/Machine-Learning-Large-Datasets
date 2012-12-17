@@ -1,14 +1,16 @@
+HOME := /home/hadoop/workspace/Machine-Learning-for-Large-Datasets/MLLD
 DICT := 10000
 STEPSIZE := 0.1
-TESTFILE := /home/hadoop/workspace/Machine-Learning-for-Large-Datasets/MLLD/data/classification/abstract.tiny.test
-TRAINFILE := /home/hadoop/workspace/Machine-Learning-for-Large-Datasets/MLLD/data/classification/abstract.tiny.train
+TRAINFILE := $(HOME)/data/classification/abstract.tiny.train
+TESTFILE := $(HOME)/data/classification/abstract.tiny.test
+MODELDIR := $(HOME)/data/classification
 
-demo: Document.class LRTest.class LogisticRegression.class MemorySGD.class SGD.class Model.class
+train: Document.class LogisticRegression.class LRTest.class MemorySGD.class SGD.class Model.class
 	#sh finalTrain.sh $(DICT) $(STEPSIZE) $(TESTFILE) $(TRAINFILE)
-	sh finalTrain.sh $(DICT) $(STEPSIZE) $(TESTFILE) $(TRAINFILE)
+	sh finalTrain.sh $(DICT) $(STEPSIZE) $(TESTFILE) $(TRAINFILE) $(MODELDIR)
 
-test: Document.class LRTest.class LogisticRegression.class MemorySGD.class SGD.class Model.class
-	sh finalTrain.sh $(DICT) $(STEPSIZE) $(TESTFILE) $(TRAINFILE)
+test: Document.class LogisticRegression.class LRTest.class MemorySGD.class SGD.class Model.class
+	sh finalTest.sh $(DICT) $(STEPSIZE) $(TESTFILE) $(MODELDIR)
 
 Document.class: Document.java
 	javac Document.java

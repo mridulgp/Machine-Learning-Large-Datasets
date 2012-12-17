@@ -1,0 +1,44 @@
+							Graph Sampling
+
+
+Introduction:
+=============
+This code implements a local graph sampling algorithm using Random Walk with Restart method as described in this paper:
+
+Local Graph Partitioning using PageRank Vectors. Andersen, Chung, Lang. FOCS 2006
+
+This is a two stage method. The first step runs personalized PageRank algorithm given a seed node. The second step runs conductance algorithm to
+partition or sample the graph locally.
+
+Algorithm:
+==========
+To run the graph sampling code, follow the steps given below:
+
+0. Export the home directory as project in an IDE like Eclipse. Else,
+you can also run the algorithm using the Makefile provided under:
+graphsampling/Makefile
+
+The steps below describe running the algorithm using the Makefile provided along with the source code.
+First, change directory to graphsampling as give below:
+	cd $(HOME)/src/graphsampling
+
+Sample data has been provided here: $(HOME)/data/graphsampling/test.adj
+Data format:
+Adjacency list representation where each line contains tab separated columns. First column in each line denotes the node. Rest of the columns denote immediate neighbors of that node connected by an undirected edge. For example,
+
+George_Gordon,_5th_Duke_of_Gordon	Alexander_Gordon,_4th_Duke_of_Gordon	Member_of_Parliament	George_IV_of_the_United_Kingdom
+
+1. Modify user parameters/variables in the makefile as follows:
+		OUTPUTDIR=<output-dir>
+		SEED=<seed-node> e.g., SEED="Machine_Learning"
+		INPUTFILE=<input-file>
+		ALPHA=<jump-probability> e.g., ALPHA=0.3
+		EPSILON=<stopping-criterion> e.g., EPSILON=1e-5
+
+2. To run PageRank algorithm:
+	(a). make pagerank
+	(b). Output stored in <output-dir>/pagerank.txt
+
+3. To run local graph sampling algorithm:
+	(a). make snowball
+	(b). Output stored in <output-dir>/conductance.csv

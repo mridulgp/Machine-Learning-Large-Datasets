@@ -31,7 +31,7 @@ public class LogisticRegression
 
 
 	//@SuppressWarnings("unchecked")
-	public void train(BufferedReader inReader, int iteration, int trainingInstances) throws IOException
+	public void train(BufferedReader inReader, int iteration, int trainingInstances, String modelDir) throws IOException
 	{
 		int newTotalInstances=0;
 
@@ -74,7 +74,7 @@ public class LogisticRegression
 				if(currentModel.length>0)
 				{
 					String modelName = currentModel[0].getModelName();
-					String modelFile = "sgd.lr" + "/" + modelName + "." + String.valueOf(dictionarySize) + "-" + String.valueOf(regularizationConstant) + "." + "final";
+					String modelFile = modelDir + "/" + modelName + "." + String.valueOf(dictionarySize) + "-" + String.valueOf(regularizationConstant) + "." + "final";
 					FileOutputStream fileOut = new FileOutputStream(modelFile);
 					ObjectOutputStream out = new ObjectOutputStream(fileOut);
 					out.writeObject(currentModel);
@@ -100,10 +100,11 @@ public class LogisticRegression
 
 		//int iteration = Integer.parseInt(args[3]); // number of iterations
 		double regularizationConstant = Double.parseDouble(args[3]);
-		SGD sgd = new MemorySGD(Integer.parseInt(args[2]), regularizationConstant);
+		String[] labelList = {"nl", "el", "ru", "sl", "pl", "ca", "fr", "tr", "hu", "de", "hr", "es", "ga", "pt"};
+		//String[] labelList = {"en", "de", "nd"};
+		
+		SGD sgd = new MemorySGD(Integer.parseInt(args[2]), regularizationConstant, labelList.length);
 
-		//String[] labelList = {"nl", "el", "ru", "sl", "pl", "ca", "fr", "tr", "hu", "de", "hr", "es", "ga", "pt"};
-		String[] labelList = {"en", "de", "nd"};
 
 		// dictionary size
 		LogisticRegression lr = new LogisticRegression(sgd, Integer.parseInt(args[2]), labelList);
@@ -121,7 +122,7 @@ public class LogisticRegression
 				iteration++;
 				BufferedReader inReader = new BufferedReader(new InputStreamReader(new FileInputStream(child.toString())));
 				// Do something with child
-				lr.train(inReader, iteration, Integer.parseInt(args[1])); // number of examples
+				lr.train(inReader, iteration, Integer.parseInt(args[1]), args[4]); // number of examples
 				inReader.close();
 			}
 		}

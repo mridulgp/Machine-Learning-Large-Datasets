@@ -1,0 +1,65 @@
+							Phrase Counting/Sampling
+							========================
+
+Introduction:
+=============
+This code provides a MapReduce implementation of a phrase counting and sampling algorithm from a given large corpus such as the Google n-gram corpus. For simplicity, the algorithm is implemented for bigrams, but can be extended to n-grams of any size.
+
+For more information on the Google n-gram corpus, please refer: http://books.google.com/ngrams
+
+Given an n-gram corpus divided into background and foreground subcorpus, the algorithm samples some of the most interesting phrases from the foreground or background corpus using a pointwise KL divergence metric.
+
+The algorithm is described in detail in the following paper:
+A Language Model Approach to Keyphrase Extraction, T. Tomokiyo and M. Hurst. MWE '03 Proceedings of the ACL 2003 workshop on Multiword expressions: analysis, acquisition and treatment.
+
+
+Prerequisites:
+==============
+
+1. Hadoop cluster should be setup and should be running online. For more information please refer to:
+http://hadoop.apache.org/docs/stable/cluster_setup.html
+
+2. The code uses the Apache Hadoop library. This can be downloaded from:
+http://hadoop.apache.org/releases.html
+
+More specifically, the code has been compiled and tested with hadoop-0.20.203.0.
+
+DISCLAIMER: The code should compile and run on all stable releases starting 0.20 and later.
+	    There is no guarantee that this code will always compile with hadoop releases above 0.20.
+
+Code Compilation/Execution:
+===========================
+
+0. Export the home directory as a project in an IDE like Eclipse (also import required hadoop libraries). Else,
+you can also train and test the algorithm on the command line by using the jar files provided in lib/ directory as specified in the Makefile here:
+phrasecounting/Makefile
+
+The steps below describe running the algorithm using the Makefile provided along with the source code.
+First, change directory to phrasecounting as give below:
+	cd $(HOME)/src/phrasecounting
+
+Sample data has been provided here:
+$(HOME)/data/phrase/unigram_apple.txt
+$(HOME)/data/classification/bigram_apple.txt
+
+Please copy data files to HDFS on the hadoop cluster using the following command on the shell prompt:
+bin/hadoop dfs -copyFromLocal <localsrc> <hdfs-dst>
+
+
+Data format:
+The example data uses Google n-gram corpus. Each line in the corpus consists of 3 tab separated columns. The first column contains the n-gram. The second column contains the decade a particular n-gram occurred in the Google n-gram corpus. The third column contains frequency of occurrence of the n-gram.
+
+For example,
+about apple	1960	75
+about apple	1970	58
+about apple	1980	183
+about apple	1990	346
+
+1. Modify user parameters/variables in the makefile as follows:
+		HADOOP=<hadoop-home-directory>
+		INPUTUNIGRAM=<hdfs-unigram-dir>
+		INPUTBIGRAM=<hdfs-bigram-dir>
+
+2. To train and test the algorithm:
+	(a). make phrases
+	(b). Output is printed on shell along with phrase relevance scores.

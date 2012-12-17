@@ -1,0 +1,41 @@
+							Logistic Regression with SGD
+							============================
+
+Introduction:
+=============
+This code implements a memory-efficient lazy L2-regularized logistic regression algorithm for text classification using stochastic gradient descent.
+
+The algorithm is explained in detail in the following paper:
+Lazy Sparse Stochastic Gradient Descent for Regularized Multinomial Logistic Regression. B. Carpenter. Technical report, 2008. http://lingpipe-blog.com/lingpipe-white-papers
+
+Code Compilation/Execution:
+===========================
+
+0. Export the home directory as a project in an IDE like Eclipse. Else, you can also train and test the algorithm on the command line by using the jar files provided in directory as specified in the Makefile here:
+stochasticgradientdescent/Makefile
+
+The steps below describe running the algorithm using the Makefile provided along with the source code.
+First, change directory to stochasticgradientdescent as give below:
+	cd $(HOME)/src/stochasticgradientdescent
+
+Sample data has been provided here:
+Train: $(HOME)/data/classification/abstract.tiny.train
+Test: $(HOME)/data/classification/abstract.tiny.test
+
+Data format:
+Each document (text) is represented as a bag of words per line. Each line contains two tab separated columns.
+The first column denotes the set of labels separated by commas. The second column contains a bag-of-words representation of documents.
+For example,
+
+pt,tr,hu,es,ru,pl,ca,nl,sl,fr,ga,de,hr,el	william clark gable february 1 1901 ndash november 16 1960 american film actor 1999 american film institute named gable seventh among greatest male stars all time gable's most famous role rhett butler 1939 civil war epic film gone wind starred vivien leigh his performance earned him his third nomination academy award best actor won happened one night 1934 also nominated mutiny bounty 1935 later performances run silent run deep submarine war film his final film misfits 1961 paired gable marilyn monroe also her last screen appearance during his long film career gable appeared opposite some most popular actresses time joan crawford who his favorite actress work partnered gable eight films myrna loy him seven times paired jean harlow six productions also starred lana turner four features norma shearer three gable often named top male star mid30s second only top boxoffice draw all shirley temple
+
+1. Modify user parameters/variables in the makefile as follows:
+		DICT=<dict-size> e.g., DICT=10000
+		STEPSIZE=<step-size> e.g., STEPSIZE=0.1
+		TRAINFILE=<train-set>
+		TESTFILE=<test-set>
+		MODELDIR=<model-dir> e.g., MODELDIR=$(HOME)/data/classification
+
+2. To train and test the algorithm:
+	(a). make
+	(b). Output is printed on the screen with log probabilities of each class.

@@ -7,19 +7,29 @@ import java.util.Map;
 
 public abstract class SGD
 {
+	public SGD(int dictionarySize, double regularizationConstant, int length)
+	{
+		modelSGDList =  new Model[length];
+		this.dictionarySize = dictionarySize;
+		this.regularizationConstant = regularizationConstant;
+		this.featureHash = new HashMap<Integer, Integer>();
+		this.prob = 0.5;
+		this.score = 0.0;
+	}	
+	
 	public SGD(int dictionarySize, double regularizationConstant)
 	{
-		modelSGDList =  new Model[3];
+		modelSGDList =  new Model[14];
 		this.dictionarySize = dictionarySize;
 		this.regularizationConstant = regularizationConstant;
 		this.featureHash = new HashMap<Integer, Integer>();
 		this.prob = 0.5;
 		this.score = 0.0;
 	}
-	
+
 	public SGD(int dictionarySize)
 	{
-		modelSGDList =  new Model[3];
+		modelSGDList =  new Model[14];
 		this.dictionarySize = dictionarySize;
 		this.featureHash = new HashMap<Integer, Integer>();
 		this.prob = 0.5;
