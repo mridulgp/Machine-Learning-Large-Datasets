@@ -36,6 +36,9 @@ pt,tr,hu,es,ru,pl,ca,nl,sl,fr,ga,de,hr,el	william clark gable february 1 1901 nd
 		TESTFILE=<test-set>
 		MODELDIR=<model-dir> e.g., MODELDIR=$(HOME)/data/classification
 
-2. To train and test the algorithm:
-	(a). make
-	(b). Output is printed on the screen with log probabilities of each class.
+2. To train the classification algorithm:
+	make train
+
+3. To classify instances from the test set:
+	(a). make test
+	(b). Output is printed on the screen along with log probabilities of each class.
